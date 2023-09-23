@@ -55,6 +55,24 @@ public class StringFormat
         return instance;
     }
 
+    private String
+    RemoveIgnoreTags(string template)
+    {
+        if (string.IsNullOrEmpty(template))
+        {
+            return template;
+        }
+
+        string result = template;
+
+#pragma warning disable CS8604
+        result = Regex.Replace(result, escapeStart + matchStart, matchStart);
+        result = Regex.Replace(result, matchEnd + escapeEnd, matchEnd);
+#pragma warning restore CS8604
+
+        return result;
+    }
+
     public string
     Format(string template,
            Dictionary<string, Object> map)
@@ -68,12 +86,17 @@ public class StringFormat
 
         foreach(KeyValuePair<string, Object> kvp in map)
         {
-            string exp = matchStart + " *" + kvp.Key + " *" + matchEnd;
+            string exp = 
+                "(?<!" + escapeStart + ")" +
+                matchStart + " *" + kvp.Key + " *" + matchEnd +
+                "(?!" + escapeEnd + ")";
 
 #pragma warning disable CS8604
             result = Regex.Replace(result, exp, kvp.Value.ToString());
 #pragma warning restore CS8604
         }
+
+        result = RemoveIgnoreTags(result);
 
         return result;
     }
