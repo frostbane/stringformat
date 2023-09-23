@@ -35,9 +35,9 @@ public class MapStrategy
         foreach(KeyValuePair<string, Object> kvp in map)
         {
             string exp = 
-                "(?<!" + sf.GetEscapeStart() + ")" +
+                "(?<!(" + sf.GetEscapeStart() + "))" +
                 sf.GetMatchStart() + " *" + kvp.Key + " *" + sf.GetMatchEnd() +
-                "(?!" + sf.GetEscapeEnd() + ")";
+                "(?!(" + sf.GetEscapeEnd() + "))";
 
 #pragma warning disable CS8604
             result = Regex.Replace(result, exp, kvp.Value.ToString());

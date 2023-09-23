@@ -34,7 +34,7 @@ public class StringFormat : StringFormatInterface
     public string
     GetMatchStart()
     {
-        return matchStart;
+        return EscapeSpecial(matchStart);
     }
 
     /// <inheritdoc />
@@ -50,7 +50,7 @@ public class StringFormat : StringFormatInterface
     public string
     GetMatchEnd()
     {
-        return matchEnd;
+        return EscapeSpecial(matchEnd);
     }
 
     /// <inheritdoc />
@@ -66,7 +66,7 @@ public class StringFormat : StringFormatInterface
     public string
     GetEscapeStart()
     {
-        return escapeStart;
+        return EscapeSpecial(escapeStart);
     }
 
     /// <inheritdoc />
@@ -82,14 +82,27 @@ public class StringFormat : StringFormatInterface
     public string
     GetEscapeEnd()
     {
-        return escapeEnd;
+        return EscapeSpecial(escapeEnd);
     }
 
     private string
-    EscapeRegex(string text)
+    EscapeSpecial(string text)
     {
-        // . $ ^ { [ ( | ) * + ? \
-        return text;
+        if (string.IsNullOrEmpty(text))
+        {
+            return text;
+        }
+
+        string[] specialChars = new string[] { "\\", ".", "$", "^", "[", "(", "|", ")", "*", "+", "?" };
+        // { ".", "$", "^", "{", "[", "(", "|", ")", "*", "+", "?", "\\" };
+        string result = text;
+
+        foreach(string c in specialChars)
+        {
+            result = result.Replace(c, "\\" + c);
+        }
+
+        return result;
     }
 
     /// <inheritdoc />
@@ -104,8 +117,8 @@ public class StringFormat : StringFormatInterface
         string result = template;
 
 #pragma warning disable CS8604
-        result = Regex.Replace(result, escapeStart + matchStart, matchStart);
-        result = Regex.Replace(result, matchEnd + escapeEnd, matchEnd);
+        result = Regex.Replace(result, GetEscapeStart() + GetMatchStart(), matchStart);
+        result = Regex.Replace(result, GetMatchEnd() + GetEscapeEnd(), matchEnd);
 #pragma warning restore CS8604
 
         return result;
