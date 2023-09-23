@@ -23,6 +23,7 @@ nbproject/Makefile*
 # temporary directories and 3rd party source code directories
 dist/*
 bin/*
+.bin/*
 tmp/*
 var/*
 cache/*
@@ -33,6 +34,7 @@ extern/*
 lib/*
 docs/*
 obj/*
+.obj/*
 dev/.zim/*
 vendor/*
 .gradle/*
