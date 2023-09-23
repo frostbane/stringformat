@@ -2,11 +2,8 @@
 
 namespace Dev.Frostbane;
 
-public class StringFormat
+public class StringFormat : StringFormatInterface
 {
-    private static
-    StringFormat? instance = null;
-
     private string
     matchStart = "{{";
 
@@ -19,40 +16,36 @@ public class StringFormat
     private string
     escapeEnd = "//";
 
-    private StringFormat()
+    public StringFormat()
     {
     }
 
-    public StringFormat
+    /// <inheritdoc />
+    public StringFormatInterface
     SetMatchStart(string open)
     {
         return this;
     }
 
-    public StringFormat
+    /// <inheritdoc />
+    public StringFormatInterface
     SetMatchEnd(string close)
     {
         return this;
     }
 
-    public StringFormat
+    /// <inheritdoc />
+    public StringFormatInterface
     SetEscapeStart(string open)
     {
         return this;
     }
 
-    public StringFormat
+    /// <inheritdoc />
+    public StringFormatInterface
     SetEscapeEnd(string close)
     {
         return this;
-    }
-
-    public static
-    StringFormat GetInstance()
-    {
-        instance ??= new StringFormat();
-
-        return instance;
     }
 
     private String
@@ -73,6 +66,7 @@ public class StringFormat
         return result;
     }
 
+    /// <inheritdoc />
     public string
     Format(string template,
            Dictionary<string, Object> map)

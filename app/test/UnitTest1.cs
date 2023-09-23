@@ -7,7 +7,7 @@ public class UnitTest1
     [Fact]
     public void TestBasicReplace()
     {
-        StringFormat sf = StringFormat.GetInstance();
+        StringFormat sf = new ();
 
         var map = new Dictionary<string, object>()
         {
@@ -24,7 +24,7 @@ public class UnitTest1
     [Fact]
     public void TestIgnoreTag()
     {
-        StringFormat sf = StringFormat.GetInstance();
+        StringFormat sf = new ();
 
         var map = new Dictionary<string, object>()
         {
