@@ -1,4 +1,6 @@
-﻿namespace Dev.Frostbane;
+﻿using System.Text.RegularExpressions;
+
+namespace Dev.Frostbane;
 
 public class StringFormat
 {
@@ -18,9 +20,22 @@ public class StringFormat
     }
 
     public string
-    format(string template,
+    Format(string template,
            Dictionary<string, Object> map)
     {
-        return template;
+        if (string.IsNullOrEmpty(template))
+        {
+            return template;
+        }
+
+        string result = template;
+
+        foreach(KeyValuePair<string, Object> kvp in map)
+        {
+            string exp = "{{ *" + kvp.Key + " *}}";
+            result = Regex.Replace(result, exp, kvp.Value.ToString());
+        }
+
+        return result;
     }
 }
