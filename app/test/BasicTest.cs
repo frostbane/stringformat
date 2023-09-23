@@ -2,7 +2,7 @@ using Dev.Frostbane;
 
 namespace Dev.Frostbane.Test;
 
-public class UnitTest1
+public class BasicTest
 {
     [Fact]
     public void
