@@ -1,6 +1,6 @@
 using Dev.Frostbane;
 
-namespace Dev.Frostbane.Test;
+namespace Dev.Frostbane.Test.MapStrategy;
 
 public class BasicTest
 {
