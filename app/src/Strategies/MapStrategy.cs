@@ -34,10 +34,12 @@ public class MapStrategy
 
         foreach(KeyValuePair<string, Object> kvp in map)
         {
+            string match =
+                sf.GetMatchStart() + " *" + kvp.Key + " *" + sf.GetMatchEnd();
             string exp =
-                "(?<!(" + sf.GetEscapeStart() + "))" +
-                sf.GetMatchStart() + " *" + kvp.Key + " *" + sf.GetMatchEnd() +
-                "(?!(" + sf.GetEscapeEnd() + "))";
+                "(?<!(" + sf.GetEscapeStart() + "))" + match +
+                "|" +
+                match + "(?!(" + sf.GetEscapeEnd() + "))";
 
 #pragma warning disable CS8600
             string val = kvp.Value.ToString();
@@ -51,7 +53,7 @@ public class MapStrategy
             }
             else
             {
-                result = Regex.Replace(result, exp, val);
+                result = Regex.Replace(result, exp, m => m.Groups[1].Value + val + m.Groups[3].Value);
             }
 #pragma warning restore CS8604
         }

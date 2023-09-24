@@ -93,7 +93,7 @@ public class StringFormat : StringFormatInterface
             return text;
         }
 
-        string[] specialChars = new string[] { "\\", ".", "$", "^", "[", "(", "|", ")", "*", "+", "?" };
+        string[] specialChars = new string[] { "\\", ".", "$", "^", "[", "(", "|", ")", "]", "*", "+", "?" };
         // { ".", "$", "^", "{", "[", "(", "|", ")", "*", "+", "?", "\\" };
         string result = text;
 
@@ -114,11 +114,15 @@ public class StringFormat : StringFormatInterface
             return template;
         }
 
+        string exp =
+            GetEscapeStart() +
+            "(" + GetMatchStart() + " *[^(" + GetMatchEnd() + ")]* *" + GetMatchEnd() + ")" +
+            GetEscapeEnd();
+
         string result = template;
 
 #pragma warning disable CS8604
-        result = Regex.Replace(result, GetEscapeStart() + GetMatchStart(), matchStart);
-        result = Regex.Replace(result, GetMatchEnd() + GetEscapeEnd(), matchEnd);
+        result = Regex.Replace(result, exp, m => m.Groups[1].Value);
 #pragma warning restore CS8604
 
         return result;
