@@ -42,7 +42,7 @@ public class MapStrategy
                 match + "(?!(" + sf.GetEscapeEnd() + "))";
 
 #pragma warning disable CS8600
-            string val = kvp.Value.ToString();
+            string val = sf.GetValue(kvp.Value);
             string keyRegex = "^" + sf.GetMatchStart() + " *[^(" + sf.GetMatchEnd() + ")]+ *" + sf.GetMatchEnd() + "$";
 #pragma warning restore CS8600
 

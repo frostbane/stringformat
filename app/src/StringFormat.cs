@@ -85,6 +85,17 @@ public class StringFormat : StringFormatInterface
         return EscapeSpecial(escapeEnd);
     }
 
+    /// <inheritdoc/>
+    public string
+    GetValue(Object obj)
+    {
+#pragma warning disable CS8603
+        return obj == null ?
+               "Null" :
+               obj.ToString();
+#pragma warning restore CS8603
+    }
+
     private string
     EscapeSpecial(string text)
     {

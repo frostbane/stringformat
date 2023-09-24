@@ -27,6 +27,9 @@ public interface StringFormatInterface
     GetEscapeEnd();
 
     string
+    GetValue(Object obj);
+
+    string
     RemoveIgnoreTags(string template);
 
     string
