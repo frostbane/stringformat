@@ -127,7 +127,7 @@ public class StringFormat : StringFormatInterface
 
         string exp =
             GetEscapeStart() +
-            "(" + GetMatchStart() + " *[^(" + GetMatchEnd() + ")]* *" + GetMatchEnd() + ")" +
+            "(" + GetMatchStart() + " *[^(" + GetMatchEnd() + ") ]* *" + GetMatchEnd() + ")" +
             GetEscapeEnd();
 
         string result = template;

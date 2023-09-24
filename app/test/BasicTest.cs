@@ -22,6 +22,27 @@ public class BasicTest
         Assert.Equivalent(expected, result, strict: true);
     }
 
+    /// <summary>
+    /// spaces in the key should be replaced by underscores
+    /// </summary>
+    [Fact]
+    public void
+    TestBasicReplace_space()
+    {
+        StringFormat sf = new ();
+
+        var map = new Dictionary<string, object>()
+        {
+            { "col name", "id" },
+        };
+
+        string expected = "id";
+        string template = "{{col_name}}";
+        string result   = sf.Format(template, map);
+
+        Assert.Equivalent(expected, result, strict: true);
+    }
+
     [Fact]
     public void
     TestBasicReplaceSql()
@@ -121,6 +142,24 @@ public class BasicTest
 
     [Fact]
     public void
+    TestBasicIgnoreTag_withIgnore()
+    {
+        StringFormat sf = new ();
+
+        var map = new Dictionary<string, object>()
+        {
+            { "col", "id" },
+        };
+
+        string expected = "//{{ col }}//";
+        string template = "////{{ col }}////";
+        string result   = sf.Format(template, map);
+
+        Assert.Equivalent(expected, result, strict: true);
+    }
+
+    [Fact]
+    public void
     TestIgnoreTagSql()
     {
         StringFormat sf = new ();
@@ -129,10 +168,11 @@ public class BasicTest
         {
             { "col", "id" },
             { "table", "t_users" },
+            { "login", "1" },
         };
 
-        string expected = "select {{ col }} from t_users;";
-        string template = "select //{{ col }}// from {{ table }};";
+        string expected = "select {{ col }} from t_users where login = '//{{ login }}//';";
+        string template = "select //{{ col }}// from {{ table }} where login = '////{{ login }}////';";
         string result   = sf.Format(template, map);
 
         Assert.Equivalent(expected, result, strict: true);

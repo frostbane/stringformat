@@ -35,7 +35,7 @@ public class MapStrategy
         foreach(KeyValuePair<string, Object> kvp in map)
         {
             string match =
-                sf.GetMatchStart() + " *" + kvp.Key + " *" + sf.GetMatchEnd();
+                sf.GetMatchStart() + " *" + kvp.Key.Replace(" ", "_") + " *" + sf.GetMatchEnd();
             string exp =
                 "(?<!(" + sf.GetEscapeStart() + "))" + match +
                 "|" +
