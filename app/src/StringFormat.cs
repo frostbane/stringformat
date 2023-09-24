@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Dev.Frostbane.Strategies;
 
 namespace Dev.Frostbane;
 
@@ -24,31 +25,75 @@ public class StringFormat : StringFormatInterface
     public StringFormatInterface
     SetMatchStart(string open)
     {
+        matchStart = open;
+
         return this;
+    }
+
+    /// <inheritdoc />
+    public string
+    GetMatchStart()
+    {
+        return matchStart;
     }
 
     /// <inheritdoc />
     public StringFormatInterface
     SetMatchEnd(string close)
     {
+        matchEnd = close;
+
         return this;
+    }
+
+    /// <inheritdoc />
+    public string
+    GetMatchEnd()
+    {
+        return matchEnd;
     }
 
     /// <inheritdoc />
     public StringFormatInterface
     SetEscapeStart(string open)
     {
+        escapeStart = open;
+
         return this;
+    }
+
+    /// <inheritdoc />
+    public string
+    GetEscapeStart()
+    {
+        return escapeStart;
     }
 
     /// <inheritdoc />
     public StringFormatInterface
     SetEscapeEnd(string close)
     {
+        escapeEnd = close;
+
         return this;
     }
 
-    private String
+    /// <inheritdoc />
+    public string
+    GetEscapeEnd()
+    {
+        return escapeEnd;
+    }
+
+    private string
+    EscapeRegex(string text)
+    {
+        // . $ ^ { [ ( | ) * + ? \
+        return text;
+    }
+
+    /// <inheritdoc />
+    public string
     RemoveIgnoreTags(string template)
     {
         if (string.IsNullOrEmpty(template))
@@ -71,27 +116,6 @@ public class StringFormat : StringFormatInterface
     Format(string template,
            Dictionary<string, Object> map)
     {
-        if (string.IsNullOrEmpty(template))
-        {
-            return template;
-        }
-
-        string result = template;
-
-        foreach(KeyValuePair<string, Object> kvp in map)
-        {
-            string exp = 
-                "(?<!" + escapeStart + ")" +
-                matchStart + " *" + kvp.Key + " *" + matchEnd +
-                "(?!" + escapeEnd + ")";
-
-#pragma warning disable CS8604
-            result = Regex.Replace(result, exp, kvp.Value.ToString());
-#pragma warning restore CS8604
-        }
-
-        result = RemoveIgnoreTags(result);
-
-        return result;
+        return MapStrategy.GetInstance().Format(this, template, map);
     }
 }

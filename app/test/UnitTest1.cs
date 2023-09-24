@@ -5,7 +5,8 @@ namespace Dev.Frostbane.Test;
 public class UnitTest1
 {
     [Fact]
-    public void TestBasicReplace()
+    public void
+    TestBasicReplace()
     {
         StringFormat sf = new ();
 
@@ -22,7 +23,8 @@ public class UnitTest1
     }
 
     [Fact]
-    public void TestIgnoreTag()
+    public void
+    TestIgnoreTag()
     {
         StringFormat sf = new ();
 
@@ -36,12 +38,5 @@ public class UnitTest1
         string result   = sf.Format("select //{{ col }}// from {{ table }};", map);
 
         Assert.Equivalent(expected, result, strict: true);
-    }
-
-    [Fact]
-    public void TestRegexEscape()
-    {
-        // . $ ^ { [ ( | ) * + ? \
-        Assert.True(false, "Not yet implemented.");
     }
 }
