@@ -30,6 +30,8 @@ public class EscapeTest
         {
             { "col", "id" },
             { "table", "t_users" },
+            { "state", "1" },
+            { "admin", "0" },
         };
 
         string expected = "select id from t_users where state = '"+ c + "state' and admin = 'admin" + c + "';";
@@ -65,6 +67,7 @@ public class EscapeTest
         {
             { "col", "id" },
             { "table", "t_users" },
+            { "comment", "akane" },
         };
 
         string expected = "select {{col}} from t_users where login = 'login}}" + m + "' and lock = '" + m + "{{lock' and comment like '%" + m + "{{comment}}" + m + "%';";

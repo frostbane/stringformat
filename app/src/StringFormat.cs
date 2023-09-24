@@ -116,29 +116,6 @@ public class StringFormat : StringFormatInterface
         return result;
     }
 
-    /// <inheritdoc/>
-    public string
-    RemoveIgnoreTags(string template)
-    {
-        if (string.IsNullOrEmpty(template))
-        {
-            return template;
-        }
-
-        string exp =
-            GetEscapeStart() +
-            "(" + GetMatchStart() + " *[^(" + GetMatchEnd() + ") ]* *" + GetMatchEnd() + ")" +
-            GetEscapeEnd();
-
-        string result = template;
-
-#pragma warning disable CS8604
-        result = Regex.Replace(result, exp, m => m.Groups[1].Value);
-#pragma warning restore CS8604
-
-        return result;
-    }
-
     /// <inheritdoc />
     public string
     Format(string template,

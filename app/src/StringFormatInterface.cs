@@ -30,9 +30,6 @@ public interface StringFormatInterface
     GetValue(Object obj);
 
     string
-    RemoveIgnoreTags(string template);
-
-    string
     Format(string template,
            Dictionary<string, Object> map);
 }

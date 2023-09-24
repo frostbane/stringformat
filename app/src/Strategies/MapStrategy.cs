@@ -20,6 +20,41 @@ public class MapStrategy
         return instance;
     }
 
+    private string
+    RemoveIgnoreTags(StringFormatInterface sf,
+                     string template,
+                     Dictionary<string, Object> map)
+    {
+        if (string.IsNullOrEmpty(template))
+        {
+            return template;
+        }
+
+        string result = template;
+
+        foreach(KeyValuePair<string, Object> kvp in map)
+        {
+            string exp =
+                sf.GetEscapeStart() +
+                "(" + sf.GetMatchStart() + " *" + kvp.Key + " *" + sf.GetMatchEnd() + ")" +
+                sf.GetEscapeEnd();
+
+#pragma warning disable CS8604
+            result = Regex.Replace(result, exp, m => m.Groups[1].Value);
+#pragma warning restore CS8604
+        }
+
+        return result;
+    }
+
+    private bool
+    ReplacementIsAToken(StringFormatInterface sf, string replacement)
+    {
+        string keyRegex = "^" + sf.GetMatchStart() + " *[^(" + sf.GetMatchEnd() + ")]+ *" + sf.GetMatchEnd() + "$";
+
+        return Regex.Match(replacement, keyRegex).Success;
+    }
+
     public string
     Format(StringFormatInterface sf,
            string template,
@@ -42,12 +77,11 @@ public class MapStrategy
                 match + "(?!(" + sf.GetEscapeEnd() + "))";
 
 #pragma warning disable CS8600
-            string val = sf.GetValue(kvp.Value);
-            string keyRegex = "^" + sf.GetMatchStart() + " *[^(" + sf.GetMatchEnd() + ")]+ *" + sf.GetMatchEnd() + "$";
+        string val = sf.GetValue(kvp.Value);
 #pragma warning restore CS8600
 
 #pragma warning disable CS8604
-            if (Regex.Match(val, keyRegex).Success)
+            if (ReplacementIsAToken(sf, val))
             {
                 result = Regex.Replace(result, exp, sf.GetEscapeStart() + val + sf.GetEscapeEnd());
             }
@@ -58,7 +92,7 @@ public class MapStrategy
 #pragma warning restore CS8604
         }
 
-        result = sf.RemoveIgnoreTags(result);
+        result = RemoveIgnoreTags(sf, result, map);
 
         return result;
     }
