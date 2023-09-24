@@ -16,7 +16,8 @@ public class BasicTest
         };
 
         string expected = "id";
-        string result   = sf.Format("{{ col }}", map);
+        string template = "{{ col }}";
+        string result   = sf.Format(template, map);
 
         Assert.Equivalent(expected, result, strict: true);
     }
@@ -34,7 +35,8 @@ public class BasicTest
         };
 
         string expected = "select id from t_users;";
-        string result   = sf.Format("select {{ col }} from {{ table }};", map);
+        string template = "select {{ col }} from {{ table }};";
+        string result   = sf.Format(template, map);
 
         Assert.Equivalent(expected, result, strict: true);
     }
@@ -105,16 +107,14 @@ public class BasicTest
     {
         StringFormat sf = new ();
 
-        sf.SetEscapeStart("//")
-          .SetEscapeEnd("//");
-
         var map = new Dictionary<string, object>()
         {
             { "col", "id" },
         };
 
         string expected = "{{ col }}";
-        string result   = sf.Format("//{{ col }}//", map);
+        string template = "//{{ col }}//";
+        string result   = sf.Format(template, map);
 
         Assert.Equivalent(expected, result, strict: true);
     }
@@ -125,9 +125,6 @@ public class BasicTest
     {
         StringFormat sf = new ();
 
-        sf.SetEscapeStart("//")
-          .SetEscapeEnd("//");
-
         var map = new Dictionary<string, object>()
         {
             { "col", "id" },
@@ -135,7 +132,8 @@ public class BasicTest
         };
 
         string expected = "select {{ col }} from t_users;";
-        string result   = sf.Format("select //{{ col }}// from {{ table }};", map);
+        string template = "select //{{ col }}// from {{ table }};";
+        string result   = sf.Format(template, map);
 
         Assert.Equivalent(expected, result, strict: true);
     }
@@ -145,9 +143,6 @@ public class BasicTest
     TestIgnoreTag_StartOnly()
     {
         StringFormat sf = new ();
-
-        sf.SetEscapeStart("//")
-          .SetEscapeEnd("//");
 
         var map = new Dictionary<string, object>()
         {
@@ -167,9 +162,6 @@ public class BasicTest
     {
         StringFormat sf = new ();
 
-        sf.SetEscapeStart("//")
-          .SetEscapeEnd("//");
-
         var map = new Dictionary<string, object>()
         {
             { "id", "1218" },
@@ -188,9 +180,6 @@ public class BasicTest
     {
         StringFormat sf = new ();
 
-        sf.SetEscapeStart("//")
-          .SetEscapeEnd("//");
-
         var map = new Dictionary<string, object>()
         {
             { "id", "1218" },
@@ -208,9 +197,6 @@ public class BasicTest
     TestIgnoreTag_MatchEndOnly()
     {
         StringFormat sf = new ();
-
-        sf.SetEscapeStart("//")
-          .SetEscapeEnd("//");
 
         var map = new Dictionary<string, object>()
         {
