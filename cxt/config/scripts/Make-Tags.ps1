@@ -5,7 +5,7 @@ ctags `
     -R `
     --exclude=.hg `
     --exclude=.vscode `
-    --exclude=./app/**/bin `
-    --exclude=./app/**/obj `
-  .
+    --exclude=./app/.bin `
+    --exclude=./app/.obj `
+  app
 

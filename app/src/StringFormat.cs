@@ -21,7 +21,7 @@ public class StringFormat : StringFormatInterface
     {
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc/>
     public StringFormatInterface
     SetMatchStart(string open)
     {
@@ -30,14 +30,14 @@ public class StringFormat : StringFormatInterface
         return this;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc/>
     public string
     GetMatchStart()
     {
         return EscapeSpecial(matchStart);
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc/>
     public StringFormatInterface
     SetMatchEnd(string close)
     {
@@ -46,14 +46,14 @@ public class StringFormat : StringFormatInterface
         return this;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc/>
     public string
     GetMatchEnd()
     {
         return EscapeSpecial(matchEnd);
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc/>
     public StringFormatInterface
     SetEscapeStart(string open)
     {
@@ -62,14 +62,14 @@ public class StringFormat : StringFormatInterface
         return this;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc/>
     public string
     GetEscapeStart()
     {
         return EscapeSpecial(escapeStart);
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc/>
     public StringFormatInterface
     SetEscapeEnd(string close)
     {
@@ -78,7 +78,7 @@ public class StringFormat : StringFormatInterface
         return this;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc/>
     public string
     GetEscapeEnd()
     {
@@ -105,7 +105,7 @@ public class StringFormat : StringFormatInterface
         return result;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc/>
     public string
     RemoveIgnoreTags(string template)
     {
