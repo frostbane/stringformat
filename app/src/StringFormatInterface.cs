@@ -18,7 +18,7 @@ public interface StringFormatInterface
 
     string GetEscapeEnd();
 
-    string GetValue(Object obj);
+    string GetValue(object obj);
 
-    string Format(string template, Object map);
+    string Format(string template, object map);
 }

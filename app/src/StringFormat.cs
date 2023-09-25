@@ -87,7 +87,7 @@ public class StringFormat : StringFormatInterface
 
     /// <inheritdoc/>
     public string
-    GetValue(Object obj)
+    GetValue(object obj)
     {
 #pragma warning disable CS8603
         return obj == null ?
@@ -119,11 +119,16 @@ public class StringFormat : StringFormatInterface
     /// <inheritdoc />
     public string
     Format(string template,
-           Object obj)
+           object obj)
     {
-        if (obj is IDictionary<string, Object>)
+        if (string.IsNullOrEmpty(template) || obj == null)
         {
-            return new MapStrategy(this).Format(template, (Dictionary<string, Object>)obj);
+            return template;
+        }
+
+        if (obj is IDictionary<string, object>)
+        {
+            return new MapStrategy(this).Format(template, (Dictionary<string, object>)obj);
         }
         else
         {

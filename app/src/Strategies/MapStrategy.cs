@@ -6,12 +6,16 @@ namespace Dev.Frostbane.Strategies;
 public class MapStrategy
 {
     private StringFormatInterface sf;
-    private Dictionary<string, Object> map;
+    private Dictionary<string, object> map;
 
+#pragma warning disable CS8618
     public MapStrategy(StringFormatInterface sf)
+#pragma warning restore CS8618
     {
         this.sf  = sf;
+#pragma warning disable CS8625
         this.map = null;
+#pragma warning restore CS8625
     }
 
     private string
@@ -24,7 +28,7 @@ public class MapStrategy
 
         string result = template;
 
-        foreach(KeyValuePair<string, Object> kvp in map)
+        foreach(KeyValuePair<string, object> kvp in map)
         {
             string exp =
                 sf.GetEscapeStart() +
@@ -49,9 +53,9 @@ public class MapStrategy
 
     public string
     Format(string template,
-           Dictionary<string, Object> map)
+           Dictionary<string, object> map)
     {
-        if (string.IsNullOrEmpty(template))
+        if (map == null)
         {
             return template;
         }
@@ -60,7 +64,7 @@ public class MapStrategy
 
         string result = template;
 
-        foreach(KeyValuePair<string, Object> kvp in map)
+        foreach(KeyValuePair<string, object> kvp in map)
         {
             string match =
                 sf.GetMatchStart() + " *" + kvp.Key.Replace(" ", "_") + " *" + sf.GetMatchEnd();
