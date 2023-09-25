@@ -3,7 +3,7 @@ using Dev.Frostbane;
 
 namespace Dev.Frostbane.Strategies;
 
-public class MapStrategy
+public class MapStrategy : StrategyInterface
 {
     private StringFormatInterface sf;
     private Dictionary<string, object> map;
@@ -52,15 +52,14 @@ public class MapStrategy
     }
 
     public string
-    Format(string template,
-           Dictionary<string, object> map)
+    Format(string template, object obj)
     {
-        if (map == null)
+        if (obj == null)
         {
             return template;
         }
 
-        this.map = map;
+        map = (Dictionary<string, object>)obj;
 
         string result = template;
 

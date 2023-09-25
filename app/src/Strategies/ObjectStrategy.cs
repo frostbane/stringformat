@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace Dev.Frostbane.Strategies;
 
-public class ObjectStrategy
+public class ObjectStrategy : StrategyInterface
 {
     private object obj;
     private StringFormatInterface sf;

@@ -126,13 +126,8 @@ public class StringFormat : StringFormatInterface
             return template;
         }
 
-        if (obj is IDictionary<string, object>)
-        {
-            return new MapStrategy(this).Format(template, (Dictionary<string, object>)obj);
-        }
-        else
-        {
-            return new ObjectStrategy(this).Format(template, obj);
-        }
+        StrategyInterface strategy = StrategyFactory.GetInstance().GetStrategy(this, obj);
+
+        return strategy.Format(template, obj);
     }
 }
