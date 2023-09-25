@@ -2,8 +2,27 @@ using Dev.Frostbane;
 
 namespace Dev.Frostbane.Test.MapStrategy;
 
-public class EscapeTest
+public class EscapeTest : IDisposable
 {
+    private StringFormat sf;
+
+    /// <summary>
+    /// SetUp
+    /// </summary>
+    public EscapeTest()
+    {
+        sf = new ();
+    }
+
+    /// <summary>
+    /// TearDown
+    /// </summary>
+    public void
+    Dispose()
+    {
+        GC.SuppressFinalize(this);
+    }
+
     [Theory]
     [InlineData(".")]
     [InlineData("$")]
@@ -19,8 +38,6 @@ public class EscapeTest
     public void
     TestRegexEscapeMatch(string c)
     {
-        StringFormat sf = new ();
-
         string m = c + c;
 
         sf.SetMatchStart(m)
@@ -56,8 +73,6 @@ public class EscapeTest
     public void
     TestRegexEscapeIgnore(string c)
     {
-        StringFormat sf = new ();
-
         string m = c + c;
 
         sf.SetEscapeStart(m)

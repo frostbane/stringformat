@@ -2,21 +2,41 @@ using Dev.Frostbane;
 
 namespace Dev.Frostbane.Test.MapStrategy;
 
-public class BasicTest
+public class BasicTest : IDisposable
 {
-    [Fact]
-    public void
-    TestBasicReplace()
-    {
-        StringFormat sf = new ();
+    private StringFormat sf;
 
+    /// <summary>
+    /// SetUp
+    /// </summary>
+    public BasicTest()
+    {
+        sf = new ();
+    }
+
+    /// <summary>
+    /// TearDown
+    /// </summary>
+    public void
+    Dispose()
+    {
+        GC.SuppressFinalize(this);
+    }
+
+    [Theory]
+    [InlineData("{{ col }}")]
+    [InlineData("{{col }}")]
+    [InlineData("{{ col}}")]
+    [InlineData("{{col}}")]
+    public void
+    TestBasicReplace(string template)
+    {
         var map = new Dictionary<string, object>()
         {
             { "col", "id" },
         };
 
         string expected = "id";
-        string template = "{{ col }}";
         string result   = sf.Format(template, map);
 
         Assert.Equivalent(expected, result, strict: true);
@@ -29,8 +49,6 @@ public class BasicTest
     public void
     TestBasicReplace_space()
     {
-        StringFormat sf = new ();
-
         var map = new Dictionary<string, object>()
         {
             { "col name", "id" },
@@ -43,12 +61,14 @@ public class BasicTest
         Assert.Equivalent(expected, result, strict: true);
     }
 
-    [Fact]
+    [Theory]
+    [InlineData("select {{ col }} from {{ table }};")]
+    [InlineData("select {{col }} from {{table }};")]
+    [InlineData("select {{ col}} from {{ table}};")]
+    [InlineData("select {{col}} from {{table}};")]
     public void
-    TestBasicReplaceSql()
+    TestBasicReplaceSql(string template)
     {
-        StringFormat sf = new ();
-
         var map = new Dictionary<string, object>()
         {
             { "col", "id" },
@@ -56,7 +76,6 @@ public class BasicTest
         };
 
         string expected = "select id from t_users;";
-        string template = "select {{ col }} from {{ table }};";
         string result   = sf.Format(template, map);
 
         Assert.Equivalent(expected, result, strict: true);
@@ -66,8 +85,6 @@ public class BasicTest
     public void
     TestBasicReplaceUrl()
     {
-        StringFormat sf = new ();
-
         sf.SetMatchStart("[")
           .SetMatchEnd("]");
 
@@ -90,8 +107,6 @@ public class BasicTest
     public void
     TestMatchStartOnly()
     {
-        StringFormat sf = new ();
-
         var map = new Dictionary<string, object>()
         {
             { "id", "1218" },
@@ -108,8 +123,6 @@ public class BasicTest
     public void
     TestMatchEndOnly()
     {
-        StringFormat sf = new ();
-
         var map = new Dictionary<string, object>()
         {
             { "id", "1218" },
@@ -122,37 +135,39 @@ public class BasicTest
         Assert.Equivalent(expected, result, strict: true);
     }
 
-    [Fact]
+    [Theory]
+    [InlineData("//{{ col }}//")]
+    [InlineData("//{{col }}//")]
+    [InlineData("//{{ col}}//")]
+    [InlineData("//{{col}}//")]
     public void
-    TestBasicIgnoreTag()
+    TestBasicIgnoreTag(string template)
     {
-        StringFormat sf = new ();
-
         var map = new Dictionary<string, object>()
         {
             { "col", "id" },
         };
 
-        string expected = "{{ col }}";
-        string template = "//{{ col }}//";
+        string expected = template[2..^2];
         string result   = sf.Format(template, map);
 
         Assert.Equivalent(expected, result, strict: true);
     }
 
-    [Fact]
+    [Theory]
+    [InlineData("////{{ col }}////")]
+    [InlineData("////{{col }}////")]
+    [InlineData("////{{ col}}////")]
+    [InlineData("////{{col}}////")]
     public void
-    TestBasicIgnoreTag_withIgnore()
+    TestBasicIgnoreTag_withIgnore(string template)
     {
-        StringFormat sf = new ();
-
         var map = new Dictionary<string, object>()
         {
             { "col", "id" },
         };
 
-        string expected = "//{{ col }}//";
-        string template = "////{{ col }}////";
+        string expected = template[2..^2];
         string result   = sf.Format(template, map);
 
         Assert.Equivalent(expected, result, strict: true);
@@ -162,8 +177,6 @@ public class BasicTest
     public void
     TestIgnoreTagSql()
     {
-        StringFormat sf = new ();
-
         var map = new Dictionary<string, object>()
         {
             { "col", "id" },
@@ -182,8 +195,6 @@ public class BasicTest
     public void
     TestIgnoreTag_StartOnly()
     {
-        StringFormat sf = new ();
-
         var map = new Dictionary<string, object>()
         {
             { "id", "1218" },
@@ -200,8 +211,6 @@ public class BasicTest
     public void
     TestIgnoreTag_EndOnly()
     {
-        StringFormat sf = new ();
-
         var map = new Dictionary<string, object>()
         {
             { "id", "1218" },
@@ -218,8 +227,6 @@ public class BasicTest
     public void
     TestIgnoreTag_MatchStartOnly()
     {
-        StringFormat sf = new ();
-
         var map = new Dictionary<string, object>()
         {
             { "id", "1218" },
@@ -236,8 +243,6 @@ public class BasicTest
     public void
     TestIgnoreTag_MatchEndOnly()
     {
-        StringFormat sf = new ();
-
         var map = new Dictionary<string, object>()
         {
             { "id", "1218" },

@@ -2,14 +2,31 @@ using Dev.Frostbane;
 
 namespace Dev.Frostbane.Test.MapStrategy;
 
-public class ReplaceTest
+public class ReplaceTest : IDisposable
 {
+    private StringFormat sf;
+
+    /// <summary>
+    /// SetUp
+    /// </summary>
+    public ReplaceTest()
+    {
+        sf = new ();
+    }
+
+    /// <summary>
+    /// TearDown
+    /// </summary>
+    public void
+    Dispose()
+    {
+        GC.SuppressFinalize(this);
+    }
+
     [Fact]
     public void
     TestReplace()
     {
-        StringFormat sf = new ();
-
         var map = new Dictionary<string, object>()
         {
             { "int", 1218 },

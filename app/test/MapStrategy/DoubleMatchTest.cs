@@ -2,14 +2,31 @@ using Dev.Frostbane;
 
 namespace Dev.Frostbane.Test.MapStrategy;
 
-public class DoubleMatchTest
+public class DoubleMatchTest : IDisposable
 {
+    private StringFormat sf;
+
+    /// <summary>
+    /// SetUp
+    /// </summary>
+    public DoubleMatchTest()
+    {
+        sf = new ();
+    }
+
+    /// <summary>
+    /// TearDown
+    /// </summary>
+    public void
+    Dispose()
+    {
+        GC.SuppressFinalize(this);
+    }
+
     [Fact]
     public void
     TestDoubleMatch()
     {
-        StringFormat sf = new ();
-
         var map = new Dictionary<string, object>()
         {
             { "key", "{{id}}" },
