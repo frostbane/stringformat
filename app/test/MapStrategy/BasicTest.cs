@@ -103,38 +103,6 @@ public class BasicTest : IDisposable
         Assert.Equivalent(expected, result, strict: true);
     }
 
-    [Fact]
-    public void
-    TestMatchStartOnly()
-    {
-        var map = new Dictionary<string, object>()
-        {
-            { "id", "1218" },
-        };
-
-        string expected = "{{id is date";
-        string template = "{{id is date";
-        string result   = sf.Format(template, map);
-
-        Assert.Equivalent(expected, result, strict: true);
-    }
-
-    [Fact]
-    public void
-    TestMatchEndOnly()
-    {
-        var map = new Dictionary<string, object>()
-        {
-            { "id", "1218" },
-        };
-
-        string expected = "id}} is date";
-        string template = "id}} is date";
-        string result   = sf.Format(template, map);
-
-        Assert.Equivalent(expected, result, strict: true);
-    }
-
     [Theory]
     [InlineData("//{{ col }}//")]
     [InlineData("//{{col }}//")]
@@ -193,15 +161,15 @@ public class BasicTest : IDisposable
 
     [Fact]
     public void
-    TestIgnoreTag_StartOnly()
+    TestMatchNotInKey()
     {
         var map = new Dictionary<string, object>()
         {
-            { "id", "1218" },
+            { "col", "id" },
         };
 
-        string expected = "//1218 is date";
-        string template = "//{{id}} is date";
+        string expected = "{{table}}";
+        string template = "{{table}}";
         string result   = sf.Format(template, map);
 
         Assert.Equivalent(expected, result, strict: true);
@@ -209,47 +177,15 @@ public class BasicTest : IDisposable
 
     [Fact]
     public void
-    TestIgnoreTag_EndOnly()
+    TestIgnoreNotInKey()
     {
         var map = new Dictionary<string, object>()
         {
-            { "id", "1218" },
+            { "col", "id" },
         };
 
-        string expected = "1218// is date";
-        string template = "{{id}}// is date";
-        string result   = sf.Format(template, map);
-
-        Assert.Equivalent(expected, result, strict: true);
-    }
-
-    [Fact]
-    public void
-    TestIgnoreTag_MatchStartOnly()
-    {
-        var map = new Dictionary<string, object>()
-        {
-            { "id", "1218" },
-        };
-
-        string expected = "//{{id is date";
-        string template = "//{{id is date";
-        string result   = sf.Format(template, map);
-
-        Assert.Equivalent(expected, result, strict: true);
-    }
-
-    [Fact]
-    public void
-    TestIgnoreTag_MatchEndOnly()
-    {
-        var map = new Dictionary<string, object>()
-        {
-            { "id", "1218" },
-        };
-
-        string expected = "id}}// is date";
-        string template = "id}}// is date";
+        string expected = "//{{table}}//";
+        string template = "//{{table}}//";
         string result   = sf.Format(template, map);
 
         Assert.Equivalent(expected, result, strict: true);

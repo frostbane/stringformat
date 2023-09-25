@@ -42,4 +42,3 @@ public class DoubleMatchTest : IDisposable
         Assert.Equivalent(expected, result, strict: true);
     }
 }
-
