@@ -1,0 +1,11 @@
+,
+,
+select {{col}} from {{table}},select id from users
+select //{{col}}// from {{table}},select {{col}} from users
+select //{{col}} from {{table}},select //id from users
+select {{col}}// from {{table}},select id// from users
+select ////{{col}}//// from {{table}},select //{{col}}// from users
+,
+select //{{col from //{{table}}//,select //{{col from //{{table}}//
+select //{{col from {{table}},select //{{col from users
+select //{{colfrom{{table}},undefined

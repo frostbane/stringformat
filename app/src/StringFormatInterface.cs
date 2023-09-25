@@ -2,34 +2,23 @@ namespace Dev.Frostbane;
 
 public interface StringFormatInterface
 {
-    StringFormatInterface
-    SetMatchStart(string open);
+    StringFormatInterface SetMatchStart(string open);
 
-    string
-    GetMatchStart();
+    string GetMatchStart();
 
-    StringFormatInterface
-    SetMatchEnd(string close);
+    StringFormatInterface SetMatchEnd(string close);
 
-    string
-    GetMatchEnd();
+    string GetMatchEnd();
 
-    StringFormatInterface
-    SetEscapeStart(string open);
+    StringFormatInterface SetEscapeStart(string open);
 
-    string
-    GetEscapeStart();
+    string GetEscapeStart();
 
-    StringFormatInterface
-    SetEscapeEnd(string close);
+    StringFormatInterface SetEscapeEnd(string close);
 
-    string
-    GetEscapeEnd();
+    string GetEscapeEnd();
 
-    string
-    GetValue(Object obj);
+    string GetValue(Object obj);
 
-    string
-    Format(string template,
-           Dictionary<string, Object> map);
+    string Format(string template, Object map);
 }

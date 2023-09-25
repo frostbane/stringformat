@@ -119,8 +119,15 @@ public class StringFormat : StringFormatInterface
     /// <inheritdoc />
     public string
     Format(string template,
-           Dictionary<string, Object> map)
+           Object obj)
     {
-        return MapStrategy.GetInstance().Format(this, template, map);
+        if (obj is IDictionary<string, Object>)
+        {
+            return new MapStrategy(this).Format(template, (Dictionary<string, Object>)obj);
+        }
+        else
+        {
+            return new ObjectStrategy(this).Format(template, obj);
+        }
     }
 }

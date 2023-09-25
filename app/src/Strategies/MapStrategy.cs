@@ -5,25 +5,17 @@ namespace Dev.Frostbane.Strategies;
 
 public class MapStrategy
 {
-    private static
-    MapStrategy? instance = null;
+    private StringFormatInterface sf;
+    private Dictionary<string, Object> map;
 
-    private MapStrategy()
+    public MapStrategy(StringFormatInterface sf)
     {
-    }
-
-    public static
-    MapStrategy GetInstance()
-    {
-        instance ??= new ();
-
-        return instance;
+        this.sf  = sf;
+        this.map = null;
     }
 
     private string
-    RemoveIgnoreTags(StringFormatInterface sf,
-                     string template,
-                     Dictionary<string, Object> map)
+    RemoveIgnoreTags(string template)
     {
         if (string.IsNullOrEmpty(template))
         {
@@ -48,7 +40,7 @@ public class MapStrategy
     }
 
     private bool
-    ReplacementIsAToken(StringFormatInterface sf, string replacement)
+    ReplacementIsAToken(string replacement)
     {
         string keyRegex = "^" + sf.GetMatchStart() + " *[^(" + sf.GetMatchEnd() + ")]+ *" + sf.GetMatchEnd() + "$";
 
@@ -56,14 +48,15 @@ public class MapStrategy
     }
 
     public string
-    Format(StringFormatInterface sf,
-           string template,
+    Format(string template,
            Dictionary<string, Object> map)
     {
         if (string.IsNullOrEmpty(template))
         {
             return template;
         }
+
+        this.map = map;
 
         string result = template;
 
@@ -81,7 +74,7 @@ public class MapStrategy
 #pragma warning restore CS8600
 
 #pragma warning disable CS8604
-            if (ReplacementIsAToken(sf, val))
+            if (ReplacementIsAToken(val))
             {
                 result = Regex.Replace(result, exp, sf.GetEscapeStart() + val + sf.GetEscapeEnd());
             }
@@ -92,7 +85,7 @@ public class MapStrategy
 #pragma warning restore CS8604
         }
 
-        result = RemoveIgnoreTags(sf, result, map);
+        result = RemoveIgnoreTags(result);
 
         return result;
     }
