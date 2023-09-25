@@ -4,12 +4,14 @@ namespace Dev.Frostbane.Test.MapStrategy;
 
 public class EscapeTest : IDisposable
 {
-    private StringFormat sf;
+    private StringFormat
+    sf;
 
     /// <summary>
     /// SetUp
     /// </summary>
-    public EscapeTest()
+    public
+    EscapeTest()
     {
         sf = new ();
     }
@@ -40,8 +42,7 @@ public class EscapeTest : IDisposable
     {
         string m = c + c;
 
-        sf.SetMatchStart(m)
-          .SetMatchEnd(m);
+        sf.SetMatchTokens(m, m);
 
         var map = new Dictionary<string, object>()
         {
@@ -75,8 +76,7 @@ public class EscapeTest : IDisposable
     {
         string m = c + c;
 
-        sf.SetEscapeStart(m)
-          .SetEscapeEnd(m);
+        sf.SetEscapeTokens(m, m);
 
         var map = new Dictionary<string, object>()
         {
@@ -111,8 +111,7 @@ public class EscapeTest : IDisposable
     {
         string m = c + c;
 
-        sf.SetEscapeStart(m)
-          .SetEscapeEnd(m);
+        sf.SetEscapeTokens(m, m);
 
         var map = new Dictionary<string, object>()
         {

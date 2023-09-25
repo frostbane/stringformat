@@ -6,23 +6,29 @@ namespace Dev.Frostbane;
 
 public class StrategyFactory
 {
-    private static
-    StrategyFactory? instance;
+    private static StrategyFactory?
+    instance;
 
-    private StrategyFactory()
+    private
+    StrategyFactory()
     {
     }
 
-    public static
-    StrategyFactory GetInstance()
+    public static StrategyFactory
+    GetInstance()
     {
         instance ??= new ();
 
         return instance;
     }
 
-    public
-    StrategyInterface GetStrategy(object obj)
+    /// <summary>
+    /// Create a viable formatter based on the parameter.
+    /// </summary>
+    /// <param name="obj">parameter</param>
+    /// <returns>A formatter strategy.</returns>
+    public StrategyInterface
+    GetStrategy(object obj)
     {
         return obj switch
         {

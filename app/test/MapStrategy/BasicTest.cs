@@ -4,12 +4,14 @@ namespace Dev.Frostbane.Test.MapStrategy;
 
 public class BasicTest : IDisposable
 {
-    private StringFormat sf;
+    private StringFormat
+    sf;
 
     /// <summary>
     /// SetUp
     /// </summary>
-    public BasicTest()
+    public
+    BasicTest()
     {
         sf = new ();
     }
@@ -85,8 +87,7 @@ public class BasicTest : IDisposable
     public void
     TestBasicReplaceUrl()
     {
-        sf.SetMatchStart("[")
-          .SetMatchEnd("]");
+        sf.SetMatchTokens("[", "]");
 
         var map = new Dictionary<string, object>()
         {

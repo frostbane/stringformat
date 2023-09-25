@@ -4,12 +4,14 @@ namespace Dev.Frostbane.Test.MapStrategy;
 
 public class DoubleMatchTest : IDisposable
 {
-    private StringFormat sf;
+    private StringFormat
+    sf;
 
     /// <summary>
     /// SetUp
     /// </summary>
-    public DoubleMatchTest()
+    public
+    DoubleMatchTest()
     {
         sf = new ();
     }

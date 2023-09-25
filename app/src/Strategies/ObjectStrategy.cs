@@ -7,11 +7,15 @@ namespace Dev.Frostbane.Strategies;
 
 public class ObjectStrategy : StrategyInterface
 {
-    private object obj;
-    private StringFormatInterface sf;
+    private object
+    obj;
+
+    private StringFormatInterface
+    sf;
 
 #pragma warning disable CS8618
-    public ObjectStrategy()
+    public
+    ObjectStrategy()
 #pragma warning restore CS8618
     {
 #pragma warning disable CS8625
@@ -20,6 +24,7 @@ public class ObjectStrategy : StrategyInterface
 #pragma warning restore CS8625
     }
 
+    /// <inheritdoc/>
     public StrategyInterface
     SetStringFormatter(StringFormatInterface sf)
     {
@@ -28,6 +33,10 @@ public class ObjectStrategy : StrategyInterface
         return this;
     }
 
+    /// <summary>
+    /// Get public static field names and their corresponding value.
+    /// </summary>
+    /// <returns>A list of key/value pairs.</returns>
     private List<KeyValuePair<string, object>>
     GetStaticFields()
     {
@@ -48,6 +57,10 @@ public class ObjectStrategy : StrategyInterface
 #pragma warning disable CS8619
     }
 
+    /// <summary>
+    /// Get public field names and their corresponding value.
+    /// </summary>
+    /// <returns>A list of key/value pairs.</returns>
     private List<KeyValuePair<string, object>>
     GetInstanceFields()
     {
@@ -69,6 +82,7 @@ public class ObjectStrategy : StrategyInterface
 #pragma warning disable CS8619
     }
 
+    /// <inheritdoc/>
     public string
     Format(string template, object obj)
     {

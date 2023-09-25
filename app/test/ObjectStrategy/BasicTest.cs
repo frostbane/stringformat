@@ -5,17 +5,18 @@ namespace Dev.Frostbane.Test.ObjectStrategy;
 
 public class BasicTest : IDisposable
 {
-    private StringFormat sf;
+    private StringFormat
+    sf;
 
     /// <summary>
     /// SetUp
     /// </summary>
-    public BasicTest()
+    public
+    BasicTest()
     {
         sf = new ();
 
-        sf.SetMatchStart("{")
-          .SetMatchEnd("}");
+        sf.SetMatchTokens("{", "}");
     }
 
     /// <summary>

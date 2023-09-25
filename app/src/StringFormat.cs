@@ -17,15 +17,12 @@ public class StringFormat : StringFormatInterface
     private string
     escapeEnd = "//";
 
-    public StringFormat()
-    {
-    }
-
     /// <inheritdoc/>
     public StringFormatInterface
-    SetMatchStart(string open)
+    SetMatchTokens(string open, string close)
     {
         matchStart = open;
+        matchEnd   = close;
 
         return this;
     }
@@ -38,15 +35,6 @@ public class StringFormat : StringFormatInterface
     }
 
     /// <inheritdoc/>
-    public StringFormatInterface
-    SetMatchEnd(string close)
-    {
-        matchEnd = close;
-
-        return this;
-    }
-
-    /// <inheritdoc/>
     public string
     GetMatchEnd()
     {
@@ -55,9 +43,10 @@ public class StringFormat : StringFormatInterface
 
     /// <inheritdoc/>
     public StringFormatInterface
-    SetEscapeStart(string open)
+    SetEscapeTokens(string open, string close)
     {
         escapeStart = open;
+        escapeEnd   = close;
 
         return this;
     }
@@ -67,15 +56,6 @@ public class StringFormat : StringFormatInterface
     GetEscapeStart()
     {
         return EscapeSpecial(escapeStart);
-    }
-
-    /// <inheritdoc/>
-    public StringFormatInterface
-    SetEscapeEnd(string close)
-    {
-        escapeEnd = close;
-
-        return this;
     }
 
     /// <inheritdoc/>
@@ -118,8 +98,7 @@ public class StringFormat : StringFormatInterface
 
     /// <inheritdoc />
     public string
-    Format(string template,
-           object obj)
+    Format(string template, object obj)
     {
         if (string.IsNullOrEmpty(template))
         {

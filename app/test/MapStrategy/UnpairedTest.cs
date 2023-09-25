@@ -4,12 +4,14 @@ namespace Dev.Frostbane.Test.MapStrategy;
 
 public class UnpairedTest : IDisposable
 {
-    private StringFormat sf;
+    private StringFormat
+    sf;
 
     /// <summary>
     /// SetUp
     /// </summary>
-    public UnpairedTest()
+    public
+    UnpairedTest()
     {
         sf = new ();
     }

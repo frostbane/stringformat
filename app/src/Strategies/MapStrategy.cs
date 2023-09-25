@@ -6,11 +6,15 @@ namespace Dev.Frostbane.Strategies;
 
 public class MapStrategy : StrategyInterface
 {
-    private StringFormatInterface sf;
-    private Dictionary<string, object> map;
+    private StringFormatInterface
+    sf;
+
+    private Dictionary<string, object>
+    map;
 
 #pragma warning disable CS8618
-    public MapStrategy()
+    public
+    MapStrategy()
 #pragma warning restore CS8618
     {
 #pragma warning disable CS8625
@@ -19,6 +23,7 @@ public class MapStrategy : StrategyInterface
 #pragma warning restore CS8625
     }
 
+    /// <inheritdoc/>
     public StrategyInterface
     SetStringFormatter(StringFormatInterface sf)
     {
@@ -27,6 +32,10 @@ public class MapStrategy : StrategyInterface
         return this;
     }
 
+    /// <summary>
+    /// Create the regular expression for matching escaped tokens
+    /// </summary>
+    /// <param name="key">token key</param>
     private string
     CreateEscapeExpression(string key)
     {
@@ -38,12 +47,25 @@ public class MapStrategy : StrategyInterface
         return exp;
     }
 
+    /// <summary>
+    /// Remove the escape token
+    /// </summary>
+    /// <param name="template">template</param>
+    /// <param name="exp">regular expression for matching the escape token</param>
     private string
     RemoveEscapeTag(string template, string exp)
     {
         return Regex.Replace(template, exp, m => m.Groups[1].Value);
     }
 
+    /// <summary>
+    /// Removes all escape tags from the template.
+    /// </summary>
+    /// <remarks>
+    /// Only escape tokens with matching keys are removed.
+    /// </remarks>
+    /// <param name="template">templage</param>
+    /// <returns>The formatted result.</returns>
     private string
     RemoveEscapeTags(string template)
     {
@@ -70,6 +92,10 @@ public class MapStrategy : StrategyInterface
         return Regex.Match(val, keyRegex).Success;
     }
 
+    /// <summary>
+    /// Create the regular expression for matching tokens.
+    /// </summary>
+    /// <param name="key">token key</param>
     private string
     CreateMatchExpression(string key)
     {
@@ -102,7 +128,14 @@ public class MapStrategy : StrategyInterface
                              sf.GetEscapeStart() + val + sf.GetEscapeEnd());
     }
 
-    private string
+    /// <summary>
+    /// Replace the match with the value.
+    /// </summary>
+    /// <param name="template">template</param>
+    /// <param name="exp">regular expression for matching the token</param>
+    /// <param name="val">value</param>
+    /// <returns>The formatted template.</returns>
+    private static string
     ReplaceWithValue(string template, string exp, string val)
     {
         return Regex.Replace(template,
@@ -110,6 +143,7 @@ public class MapStrategy : StrategyInterface
                              m => m.Groups[1].Value + val + m.Groups[3].Value);
     }
 
+    /// <inheritdoc/>
     public string
     Format(string template, object obj)
     {

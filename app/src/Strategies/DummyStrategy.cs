@@ -7,16 +7,14 @@ namespace Dev.Frostbane.Strategies;
 
 public class DummyStrategy : StrategyInterface
 {
-    public DummyStrategy()
-    {
-    }
-
+    /// <inheritdoc/>
     public StrategyInterface
     SetStringFormatter(StringFormatInterface sf)
     {
         return this;
     }
 
+    /// <inheritdoc/>
     public string
     Format(string template, object obj)
     {

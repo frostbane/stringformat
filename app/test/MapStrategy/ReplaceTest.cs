@@ -4,12 +4,14 @@ namespace Dev.Frostbane.Test.MapStrategy;
 
 public class ReplaceTest : IDisposable
 {
-    private StringFormat sf;
+    private StringFormat
+    sf;
 
     /// <summary>
     /// SetUp
     /// </summary>
-    public ReplaceTest()
+    public
+    ReplaceTest()
     {
         sf = new ();
     }
