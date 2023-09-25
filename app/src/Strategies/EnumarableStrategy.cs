@@ -34,10 +34,9 @@ public class EnumerableStrategy : StrategyInterface
         list = (IEnumerable<object>)obj;
 
         Dictionary<string, object> map =
-            list
-            .Select((val, index) => new { val, index })
-            .ToDictionary(obj => obj.index.ToString(),
-                          obj => obj.val);
+            list.Select((val, index) => new { val, index })
+                .ToDictionary(obj => obj.index.ToString(),
+                              obj => obj.val);
 
         return sf.Format(template, map);
     }
