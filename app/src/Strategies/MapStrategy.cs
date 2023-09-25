@@ -9,13 +9,21 @@ public class MapStrategy : StrategyInterface
     private Dictionary<string, object> map;
 
 #pragma warning disable CS8618
-    public MapStrategy(StringFormatInterface sf)
+    public MapStrategy()
 #pragma warning restore CS8618
     {
-        this.sf  = sf;
 #pragma warning disable CS8625
+        this.sf  = null;
         this.map = null;
 #pragma warning restore CS8625
+    }
+
+    public StrategyInterface
+    SetStringFormatter(StringFormatInterface sf)
+    {
+        this.sf   = sf;
+
+        return this;
     }
 
     private string
@@ -54,11 +62,6 @@ public class MapStrategy : StrategyInterface
     public string
     Format(string template, object obj)
     {
-        if (obj == null)
-        {
-            return template;
-        }
-
         map = (Dictionary<string, object>)obj;
 
         string result = template;

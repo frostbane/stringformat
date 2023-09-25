@@ -11,23 +11,26 @@ public class ObjectStrategy : StrategyInterface
     private StringFormatInterface sf;
 
 #pragma warning disable CS8618
-    public ObjectStrategy(StringFormatInterface sf)
+    public ObjectStrategy()
 #pragma warning restore CS8618
     {
-        this.sf  = sf;
 #pragma warning disable CS8625
+        this.sf  = null;
         this.obj = null;
 #pragma warning restore CS8625
+    }
+
+    public StrategyInterface
+    SetStringFormatter(StringFormatInterface sf)
+    {
+        this.sf   = sf;
+
+        return this;
     }
 
     private Dictionary<string, object>
     GetStaticFields()
     {
-        if (obj == null)
-        {
-            return new Dictionary<string, object>();
-        }
-
         var map = obj.GetType()
                      .GetFields(BindingFlags.Public |
                                 // BindingFlags.NonPublic |
@@ -49,11 +52,6 @@ public class ObjectStrategy : StrategyInterface
     private Dictionary<string, object>
     GetInstanceFields()
     {
-        if (obj == null)
-        {
-            return new Dictionary<string, object>();
-        }
-
         var map = obj.GetType()
                      .GetFields(BindingFlags.Public |
                                 // BindingFlags.NonPublic |
@@ -74,12 +72,8 @@ public class ObjectStrategy : StrategyInterface
     public string
     Format(string template, object obj)
     {
-        if (obj == null)
-        {
-            return template;
-        }
-
         this.obj = obj;
+
         Dictionary<string, object> map = new Dictionary<string, object>();
 
         foreach (var item in GetInstanceFields())

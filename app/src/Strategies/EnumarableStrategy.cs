@@ -11,23 +11,26 @@ public class EnumerableStrategy : StrategyInterface
     private StringFormatInterface sf;
 
 #pragma warning disable CS8618
-    public EnumerableStrategy(StringFormatInterface sf)
+    public EnumerableStrategy()
 #pragma warning restore CS8618
     {
-        this.sf   = sf;
 #pragma warning disable CS8625
+        this.sf   = null;
         this.list = null;
 #pragma warning restore CS8625
+    }
+
+    public StrategyInterface
+    SetStringFormatter(StringFormatInterface sf)
+    {
+        this.sf   = sf;
+
+        return this;
     }
 
     public string
     Format(string template, object obj)
     {
-        if (obj == null)
-        {
-            return template;
-        }
-
         list = (IEnumerable<object>)obj;
 
         Dictionary<string, object> map =

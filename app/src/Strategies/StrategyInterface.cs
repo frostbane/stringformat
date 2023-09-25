@@ -8,5 +8,7 @@ namespace Dev.Frostbane.Strategies;
 public interface StrategyInterface
 {
     string Format(string template, object map);
+
+    StrategyInterface SetStringFormatter(StringFormatInterface sf);
 }
 

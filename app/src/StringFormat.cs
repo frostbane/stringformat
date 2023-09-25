@@ -121,12 +121,15 @@ public class StringFormat : StringFormatInterface
     Format(string template,
            object obj)
     {
-        if (string.IsNullOrEmpty(template) || obj == null)
+        if (string.IsNullOrEmpty(template))
         {
             return template;
         }
 
-        StrategyInterface strategy = StrategyFactory.GetInstance().GetStrategy(this, obj);
+        StrategyInterface strategy =
+            StrategyFactory.GetInstance()
+                           .GetStrategy(obj)
+                           .SetStringFormatter(this);
 
         return strategy.Format(template, obj);
     }

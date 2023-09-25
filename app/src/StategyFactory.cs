@@ -22,19 +22,14 @@ public class StrategyFactory
     }
 
     public
-    StrategyInterface GetStrategy(StringFormatInterface sf, object obj)
+    StrategyInterface GetStrategy(object obj)
     {
-        if (obj is IDictionary<string, object>)
+        return obj switch
         {
-            return new MapStrategy(sf);
-        }
-        if (obj is IEnumerable<object>)
-        {
-            return new EnumerableStrategy(sf);
-        }
-        else
-        {
-            return new ObjectStrategy(sf);
-        }
+            null                             => new DummyStrategy(),
+            IDictionary<string, object> dict => new MapStrategy(),
+            IEnumerable<object> list         => new EnumerableStrategy(),
+            _                                => new ObjectStrategy(),
+        };
     }
 }
