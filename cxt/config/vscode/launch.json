@@ -8,6 +8,8 @@
             "name": ".NET Core Attach",
             "type": "coreclr",
             // attach to "testhost"
+            // the processName configuration below works only in windows
+            // "processName": "testhost.exe",
             "request": "attach"
         }
     ]
