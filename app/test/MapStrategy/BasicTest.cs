@@ -191,4 +191,21 @@ public class BasicTest : IDisposable
 
         Assert.Equivalent(expected, result, strict: true);
     }
+
+    [Fact]
+    public void
+    TestCaseSensitive()
+    {
+        var map = new Dictionary<string, object>()
+        {
+            { "DOMAINNAME", "FROSTBANE.DEV" },
+            { "domainname", "frostbane.dev" },
+        };
+
+        string expected = "uppercase: FROSTBANE.DEV, lowercase: frostbane.dev";
+        string template = "uppercase: {{DOMAINNAME}}, lowercase: {{domainname}}";
+        string result   = sf.Format(template, map);
+
+        Assert.Equivalent(expected, result, strict: true);
+    }
 }

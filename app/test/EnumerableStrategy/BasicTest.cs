@@ -51,4 +51,22 @@ public class BasicTest : IDisposable
 
         Assert.Equivalent(expected, result, strict: true);
     }
+
+    [Fact]
+    public void
+    TestPadding()
+    {
+        List<string> grocery = new ()
+        {
+            "milk",
+            "eggs",
+            "bread",
+        };
+
+        string expected = "remember to buy milk, {00}, {000}!";
+        string template = "remember to buy {0}, {00}, {000}!";
+        string result   = sf.Format(template, grocery);
+
+        Assert.Equivalent(expected, result, strict: true);
+    }
 }
