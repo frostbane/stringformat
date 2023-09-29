@@ -10,7 +10,7 @@ string domain = "frostbane.dev";
 string query  = "ak";
 int    limit  = 18;
 
-string url = mode + "://" + domain + "?q=" + query + "6n=" + limit.ToString();
+string url = mode + "://" + domain + "?q=" + query + "&n=" + limit.ToString();
 // https://frostbane.dev?q=ak&n=18
 ```
 
@@ -43,7 +43,6 @@ using Dev.Frostbane;
 
 StringFormat sf = new ();
 
-
 var map = new Dictionary<string, object>()
 {
     { "limit", 18 },
@@ -63,7 +62,6 @@ string url      = sf.Format(template, map);
 using Dev.Frostbane;
 
 StringFormat sf = new ();
-
 
 var list = new List<string>()
 {
@@ -92,7 +90,7 @@ public class UrlBase
 public class UrlInfo : UrlBase
 {
     public string query;
-    public int    limit;
+    public int limit;
 }
 ```
 
@@ -126,7 +124,7 @@ Check the `test` folder for more examples.
 
 Any match that has no equivalent key will be ignored.
 
-In the example below, the template has a match `{{limit}}` but the map has no key name `limit`. The formatter will just ignore the match (since there was no match.)
+In the example below, the template has a matcher `{{limit}}` but the map has no key named `limit`. The formatter will just ignore the match (since there was no match.)
 
 ```cs
 using Dev.Frostbane;
@@ -147,13 +145,20 @@ string url      = sf.Format(template, map);
 
 ##### matcher names #####
 
-Matchers can have any number of spaces inside (and is recommended for clarity.) The template below will be parsed similarly with the examples provided.
+1. Matchers can have any number of spaces inside (and is recommended for clarity.) The template below will be parsed similarly with the examples provided.
 
-Matchers **cannot** have spaces.
+    ```cs
+    string template = "{{ mode }}://{{domain }}?q={{ query}}&n={{    limit }}";
+    ```
 
-```cs
-string template = "{{ mode }}://{{domain }}?q={{ query}}&n={{    limit }}";
-```
+2. Matchers **cannot** have spaces. Use underscores `_` instead of spaces.
+3. Matchers are case sensitive.
+
+    `{{domainName}}` is different from ``{{domainname}}``.
+
+4. Matchers are typed as `string` and numeric keys are not converted. Padded zeroes will be as is.
+
+    `{{0}}` is different from ``{{00}}``.
 
 ##### spaces in key names #####
 
@@ -181,7 +186,7 @@ string url      = sf.Format(template, map);
 
 ### Escaping ###
 
-Escaping matchers is done by wrapping the match tokens `{{` `}}` with `//` `//` e.g. `//{{key}}//`.
+Escaping matchers is done by wrapping the match tokens `{{`, `}}` with `//` and `//` e.g. `//{{key}}//`. The example below escapes the ``{{query}}`` matcher and renders it as is.
 
 ```cs
 using Dev.Frostbane;
@@ -201,7 +206,7 @@ string url      = sf.Format(template, map);
 // https://frostbane.dev?q={{query}}&n=18
 ```
 
-Escaping the escape sequence is done by doubling the sequence e.g. `////{{key}}////`.
+Escaping the escape sequence is done by doubling the sequence e.g. `////{{key}}////`. The example below escapes the ``//{{query}}//`` matcher and renders it as is.
 
 ```cs
 using Dev.Frostbane;
