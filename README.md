@@ -121,6 +121,11 @@ Check the `test` folder for more examples.
 
 ## Internals ##
 
+### using dictionaries ###
+
+Due to the noncovariant nature of `Dictionaries`, only `Dictionary<string, object>` is allowed.
+passing a `Dictionary<string, string>` to `format` will cause an error.
+
 ### no matching keys ###
 
 Any match that has no equivalent key will be ignored.
