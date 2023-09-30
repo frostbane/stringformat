@@ -1,3 +1,4 @@
+using System.Collections;
 using Dev.Frostbane;
 
 namespace Dev.Frostbane.Test.Examples;
@@ -9,7 +10,7 @@ public class MapExample
     {
         StringFormat sf = new ();
 
-        var map = new Dictionary<string, object>()
+        var map = new Hashtable
         {
             { "limit", 18 },
             { "query", "ak" },

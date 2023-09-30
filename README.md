@@ -32,7 +32,7 @@ String interpolation works fine, but it pollutes the scope with local variables.
 
 ## Usage ##
 
-Replacement can either be a map (`Dictionary<string, object>`), an iterable (`List<object>`, `object[]`, etc.) or any `object` with public fields.
+Replacement can either be a map (`Hashtable` or `Dictionary<string, object>`), an iterable (`List<object>`, `object[]`, etc.) or any `object` with public fields.
 
 Matches are replaced with the keys of the map, indexes of an iterable, or fields of the object.
 
@@ -47,7 +47,7 @@ using Dev.Frostbane;
 ```cs
 StringFormat sf = new ();
 
-var map = new Dictionary<string, object>()
+var map = new Hashtable
 {
     { "limit", 18 },
     { "query", "ak" },
@@ -130,7 +130,7 @@ In the example below, the template has a matcher `{{limit}}` but the map has no 
 ```cs
 StringFormat sf = new ();
 
-var map = new Dictionary<string, object>()
+var map = new Hashtable
 {
     { "query", "ak" },
     { "domain", "frostbane.dev" },
@@ -188,7 +188,7 @@ The example below shows an example of a map having keys with spaces.
 ```cs
 StringFormat sf = new ();
 
-var map = new Dictionary<string, object>()
+var map = new Hashtable
 {
     { "query string", "ak" },
     { "domain name", "frostbane.dev" },
@@ -208,7 +208,7 @@ Escaping matchers is done by wrapping the match tokens `{{`, `}}` with `//` and 
 ```cs
 StringFormat sf = new ();
 
-var map = new Dictionary<string, object>()
+var map = new Hashtable
 {
     { "query", "ak" },
     { "limit", 18 },
@@ -226,7 +226,7 @@ Escaping the escape sequence is done by doubling the sequence e.g. `////{{key}}/
 ```cs
 StringFormat sf = new ();
 
-var map = new Dictionary<string, object>()
+var map = new Hashtable
 {
     { "query", "ak" },
     { "limit", 18 },
@@ -250,7 +250,7 @@ StringFormat sf = new ();
 
 sf.SetMatchTokens("{", "}");
 
-Dictionary<string, string> urlInfo = getUrlInfo();
+Dictionary<string, object> urlInfo = getUrlInfo();
 
 string template = "{mode}://{domain}?q={query}&n={limit}";
 string url      = sf.Format(template, urlInfo);
@@ -282,7 +282,7 @@ StringFormat sf = new ();
 sf.SetMatchTokens("{", "}")
   .SetEscapeTokens("!", "!");
 
-Dictionary<string, string> urlInfo = getUrlInfo();
+Dictionary<string, object> urlInfo = getUrlInfo();
 
 string template = "{mode}://!{domain}!?q={query}&n={limit}";
 string url      = sf.Format(template, urlInfo);

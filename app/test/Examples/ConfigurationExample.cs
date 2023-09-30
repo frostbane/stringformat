@@ -74,6 +74,7 @@ public class ConfigurationExample
         string template = "{mode}://!{domain}!?q={query}&n={limit}";
         string url      = sf.Format(template, urlInfo);
 
-        Assert.Equivalent("https://frostbane.dev?q={query}&n=18", url, strict: true);
+        Assert.Equivalent("https://{domain}?q=ak&n=18", url, strict: true);
+        //                         ^^^^^^^^
     }
 }
