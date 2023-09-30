@@ -4,7 +4,7 @@ namespace Dev.Frostbane.Test.Examples;
 
 public class ConfigurationExample
 {
-    private Dictionary<string, string>
+    private Dictionary<string, object>
     getUrlInfo()
     {
         return new ()
@@ -36,7 +36,7 @@ public class ConfigurationExample
 
         sf.SetMatchTokens("{", "}");
 
-        Dictionary<string, string> urlInfo = getUrlInfo();
+        Dictionary<string, object> urlInfo = getUrlInfo();
 
         string template = "{mode}://{domain}?q={query}&n={limit}";
         string url      = sf.Format(template, urlInfo);
@@ -69,7 +69,7 @@ public class ConfigurationExample
         sf.SetMatchTokens("{", "}")
           .SetEscapeTokens("!", "!");
 
-        Dictionary<string, string> urlInfo = getUrlInfo();
+        Dictionary<string, object> urlInfo = getUrlInfo();
 
         string template = "{mode}://!{domain}!?q={query}&n={limit}";
         string url      = sf.Format(template, urlInfo);
