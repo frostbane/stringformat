@@ -246,6 +246,8 @@ string url      = sf.Format(template, map);
 
 ## Configuration ##
 
+**changing the match tokens**
+
 Match and escape tokens can be changed according to your team's specifications.
 
 For example, changing the default `{{` and `}}` with `{` and `}`.
@@ -276,10 +278,28 @@ string url      = sf.Format(template, list);
 // https://frostbane.dev?q=ak&n=18
 ```
 
+Using only the opening token is possible but not advised.
+Rigorous testing was not done with only one token, and it will not be a planned feature.
+The template becomes less readable and is prone to possible bugs.
+
+```cs
+StringFormat sf = new ();
+
+sf.SetMatchTokens("$", string.Empty);
+
+Dictionary<string, object> urlInfo = getUrlInfo();
+
+string template = "$mode://$domain!?q=$query&n=$limit";
+string url      = sf.Format(template, urlInfo);
+
+Assert.Equivalent("https://frostbane.dev?q=ak&n=18", url, strict: true);
+```
+
+**changing the escape tokens**
+
 The default excape tokens `//` and `//` can also be changed.
 
 The example below changes both the match and escape tokens.
-
 
 ```cs
 StringFormat sf = new ();
@@ -292,6 +312,23 @@ Dictionary<string, object> urlInfo = getUrlInfo();
 string template = "{mode}://!{domain}!?q={query}&n={limit}";
 string url      = sf.Format(template, urlInfo);
 // https://frostbane.dev?q={query}&n=18
+```
+
+Just like the match tokens, you can also configure it to use only opening escape tokens,
+but it was also not rigorously tested and is not advised.
+
+```cs
+StringFormat sf = new ();
+
+sf.SetMatchTokens("<", ">")
+  .SetEscapeTokens("!", string.Empty);
+
+Dictionary<string, object> urlInfo = getUrlInfo();
+
+string template = "<mode>://!<domain>?q=<query>&n=<limit>";
+string url      = sf.Format(template, urlInfo);
+
+Assert.Equivalent("https://<domain>?q=ak&n=18", url, strict: true);
 ```
 
 ## Idea behind ##

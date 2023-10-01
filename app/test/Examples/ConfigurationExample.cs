@@ -77,4 +77,37 @@ public class ConfigurationExample
         Assert.Equivalent("https://{domain}?q=ak&n=18", url, strict: true);
         //                         ^^^^^^^^
     }
+
+    [Fact]
+    public void
+    OpenMatcherOnlyExample()
+    {
+        StringFormat sf = new ();
+
+        sf.SetMatchTokens("$", string.Empty);
+
+        Dictionary<string, object> urlInfo = getUrlInfo();
+
+        string template = "$mode://$domain?q=$query&n=$limit";
+        string url      = sf.Format(template, urlInfo);
+
+        Assert.Equivalent("https://frostbane.dev?q=ak&n=18", url, strict: true);
+    }
+
+    [Fact]
+    public void
+    OpenEscapeOnlyExample()
+    {
+        StringFormat sf = new ();
+
+        sf.SetMatchTokens("<", ">")
+          .SetEscapeTokens("!", string.Empty);
+
+        Dictionary<string, object> urlInfo = getUrlInfo();
+
+        string template = "<mode>://!<domain>?q=<query>&n=<limit>";
+        string url      = sf.Format(template, urlInfo);
+
+        Assert.Equivalent("https://<domain>?q=ak&n=18", url, strict: true);
+    }
 }

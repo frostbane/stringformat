@@ -1,3 +1,4 @@
+using System.Collections;
 using Dev.Frostbane;
 
 namespace Dev.Frostbane.Test.MapStrategy;
@@ -33,7 +34,7 @@ public class BasicTest : IDisposable
     public void
     TestBasicReplace(string template)
     {
-        var map = new Dictionary<string, object>()
+        var map = new Hashtable
         {
             { "col", "id" },
         };
@@ -51,7 +52,7 @@ public class BasicTest : IDisposable
     public void
     TestBasicReplace_space()
     {
-        var map = new Dictionary<string, object>()
+        var map = new Hashtable
         {
             { "col name", "id" },
         };
@@ -71,6 +72,26 @@ public class BasicTest : IDisposable
     public void
     TestBasicReplaceSql(string template)
     {
+        var map = new Hashtable
+        {
+            { "col", "id" },
+            { "table", "t_users" },
+        };
+
+        string expected = "select id from t_users;";
+        string result   = sf.Format(template, map);
+
+        Assert.Equivalent(expected, result, strict: true);
+    }
+
+    [Theory]
+    [InlineData("select {{ col }} from {{ table }};")]
+    [InlineData("select {{col }} from {{table }};")]
+    [InlineData("select {{ col}} from {{ table}};")]
+    [InlineData("select {{col}} from {{table}};")]
+    public void
+    TestBasicReplaceSqlDictionary(string template)
+    {
         var map = new Dictionary<string, object>()
         {
             { "col", "id" },
@@ -89,7 +110,7 @@ public class BasicTest : IDisposable
     {
         sf.SetMatchTokens("[", "]");
 
-        var map = new Dictionary<string, object>()
+        var map = new Hashtable
         {
             { "limit", 18 },
             { "query", "ak" },
@@ -112,7 +133,7 @@ public class BasicTest : IDisposable
     public void
     TestBasicIgnoreTag(string template)
     {
-        var map = new Dictionary<string, object>()
+        var map = new Hashtable
         {
             { "col", "id" },
         };
@@ -131,7 +152,7 @@ public class BasicTest : IDisposable
     public void
     TestBasicIgnoreTag_withIgnore(string template)
     {
-        var map = new Dictionary<string, object>()
+        var map = new Hashtable
         {
             { "col", "id" },
         };
@@ -146,7 +167,7 @@ public class BasicTest : IDisposable
     public void
     TestIgnoreTagSql()
     {
-        var map = new Dictionary<string, object>()
+        var map = new Hashtable
         {
             { "col", "id" },
             { "table", "t_users" },
@@ -164,7 +185,7 @@ public class BasicTest : IDisposable
     public void
     TestMatchNotInKey()
     {
-        var map = new Dictionary<string, object>()
+        var map = new Hashtable
         {
             { "col", "id" },
         };
@@ -180,7 +201,7 @@ public class BasicTest : IDisposable
     public void
     TestIgnoreNotInKey()
     {
-        var map = new Dictionary<string, object>()
+        var map = new Hashtable
         {
             { "col", "id" },
         };
@@ -196,7 +217,7 @@ public class BasicTest : IDisposable
     public void
     TestCaseSensitive()
     {
-        var map = new Dictionary<string, object>()
+        var map = new Hashtable
         {
             { "DOMAINNAME", "FROSTBANE.DEV" },
             { "domainname", "frostbane.dev" },
