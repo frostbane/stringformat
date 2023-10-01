@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\StringFormat.csproj" />
+    <ProjectReference Include="..\src\FormatString.csproj" />
   </ItemGroup>
 
 </Project>
