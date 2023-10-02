@@ -1,6 +1,6 @@
-# String Format #
+# Format String #
 
-A simple string template library.
+A simple string template formatting library.
 
 This remedies the ugly coding practices of string concatenation like the one below.
 
@@ -32,9 +32,11 @@ String interpolation works fine, but it pollutes the scope with local variables.
 
 ## Usage ##
 
-Replacement can either be a map (`Hashtable` or `Dictionary<string, object>`), an iterable (`List<object>`, `object[]`, etc.) or any `object` with public fields.
+### adding to dependencies ###
 
-Matches are replaced with the keys of the map, indexes of an iterable, or fields of the object.
+```bash
+PS> donet add package formatstring
+```
 
 ### namespace ###
 
@@ -45,7 +47,7 @@ using Dev.Frostbane;
 ### Formatting using maps ###
 
 ```cs
-StringFormat sf = new ();
+FormatString sf = new ();
 
 var map = new Hashtable
 {
@@ -63,7 +65,7 @@ string url      = sf.Format(template, map);
 ### Formatting using iterables ###
 
 ```cs
-StringFormat sf = new ();
+FormatString sf = new ();
 
 var list = new List<string>()
 {
@@ -99,7 +101,7 @@ public class UrlInfo : UrlBase
 Replacement will occur based on the fields of that object.
 
 ```cs
-StringFormat sf  = new ();
+FormatString sf  = new ();
 
 UrlInfo urlInfo = new ()
 {
@@ -121,6 +123,10 @@ Check the `test` folder for more examples.
 
 ## Internals ##
 
+Replacement can either be a map (`Hashtable` or `Dictionary<string, object>`), an iterable (`List<object>`, `object[]`, etc.) or any `object` with public fields.
+
+Matches are replaced with the keys of the map, indexes of an iterable, or fields of the object.
+
 ### using dictionaries ###
 
 Due to the noncovariant nature of `Dictionaries`, only `Dictionary<string, object>` is allowed.
@@ -130,10 +136,10 @@ passing a `Dictionary<string, string>` to `format` will cause an error.
 
 Any match that has no equivalent key will be ignored.
 
-In the example below, the template has a matcher `{{limit}}` but the map has no key named `limit`. The formatter will just ignore the match (since there was no match.)
+In the example below, the template has a matcher `{{limit}}` but the map has no key named `limit`. The formatter will just ignore the match (since there was no match).
 
 ```cs
-StringFormat sf = new ();
+FormatString sf = new ();
 
 var map = new Hashtable
 {
@@ -150,7 +156,7 @@ string url      = sf.Format(template, map);
 There is no *null pointer exception* if the index does not exist.
 
 ```cs
-StringFormat sf = new ();
+FormatString sf = new ();
 
 var arr = new string[]
 {
@@ -165,7 +171,7 @@ string url      = sf.Format(template, arr);
 
 ### matcher names ###
 
-1. Matchers can have any number of spaces inside (and is recommended for clarity.) The template below will be parsed similarly with the examples provided.
+1. Matchers can have any number of spaces inside (and is recommended for clarity). The template below will be parsed similarly with the examples provided.
 
     ```cs
     string template = "{{ mode }}://{{domain }}?q={{ query}}&n={{    limit }}";
@@ -191,7 +197,7 @@ Spaces in key names will be replaced by a underscore `_` because spaces are not 
 The example below shows an example of a map having keys with spaces.
 
 ```cs
-StringFormat sf = new ();
+FormatString sf = new ();
 
 var map = new Hashtable
 {
@@ -211,7 +217,7 @@ string url      = sf.Format(template, map);
 Escaping matchers is done by wrapping the match tokens `{{`, `}}` with `//` and `//` e.g. `//{{key}}//`. The example below escapes the ``{{query}}`` matcher and renders it as is.
 
 ```cs
-StringFormat sf = new ();
+FormatString sf = new ();
 
 var map = new Hashtable
 {
@@ -229,7 +235,7 @@ string url      = sf.Format(template, map);
 Escaping the escape sequence is done by doubling the sequence e.g. `////{{key}}////`. The example below escapes the ``//{{query}}//`` escaped matcher and renders it as is.
 
 ```cs
-StringFormat sf = new ();
+FormatString sf = new ();
 
 var map = new Hashtable
 {
@@ -253,7 +259,7 @@ Match and escape tokens can be changed according to your team's specifications.
 For example, changing the default `{{` and `}}` with `{` and `}`.
 
 ```cs
-StringFormat sf = new ();
+FormatString sf = new ();
 
 sf.SetMatchTokens("{", "}");
 
@@ -267,7 +273,7 @@ string url      = sf.Format(template, urlInfo);
 Or changing it with `[` and `]`, which feels natural for iterables.
 
 ```cs
-StringFormat sf = new ();
+FormatString sf = new ();
 
 sf.SetMatchTokens("[", "]");
 
@@ -283,13 +289,13 @@ Rigorous testing was not done with only one token, and it will not be a planned 
 The template becomes less readable and is prone to possible bugs.
 
 ```cs
-StringFormat sf = new ();
+FormatString sf = new ();
 
 sf.SetMatchTokens("$", string.Empty);
 
 Dictionary<string, object> urlInfo = getUrlInfo();
 
-string template = "$mode://$domain!?q=$query&n=$limit";
+string template = "$mode://$domain?q=$query&n=$limit";
 string url      = sf.Format(template, urlInfo);
 
 Assert.Equivalent("https://frostbane.dev?q=ak&n=18", url, strict: true);
@@ -302,7 +308,7 @@ The default excape tokens `//` and `//` can also be changed.
 The example below changes both the match and escape tokens.
 
 ```cs
-StringFormat sf = new ();
+FormatString sf = new ();
 
 sf.SetMatchTokens("{", "}")
   .SetEscapeTokens("!", "!");
@@ -318,7 +324,7 @@ Just like the match tokens, you can also configure it to use only opening escape
 but it was also not rigorously tested and is not advised.
 
 ```cs
-StringFormat sf = new ();
+FormatString sf = new ();
 
 sf.SetMatchTokens("<", ">")
   .SetEscapeTokens("!", string.Empty);
