@@ -49,7 +49,7 @@ public class BasicMatcherTest : IDisposable
     public void
     TestBasicReplace(string matcher)
     {
-        StringFormat sf = new ();
+        FormatString sf = new ();
 
         string start = matcher[0].ToString();
         string end = matcher.Length == 2 ?
@@ -94,7 +94,7 @@ public class BasicMatcherTest : IDisposable
     public void
     TestBasicReplaceOpenOnly(string matcher)
     {
-        StringFormat sf = new ();
+        FormatString sf = new ();
 
         string start = matcher;
         string end = start;

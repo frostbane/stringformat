@@ -21,7 +21,7 @@ public class ObjectExample
     [Fact]
     public void Example()
     {
-        StringFormat sf  = new ();
+        FormatString sf  = new ();
 
         UrlInfo urlInfo = new ()
         {

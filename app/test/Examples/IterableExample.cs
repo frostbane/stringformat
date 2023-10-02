@@ -7,7 +7,7 @@ public class IterableExample
     [Fact]
     public void ListExample()
     {
-        StringFormat sf = new ();
+        FormatString sf = new ();
 
         var list = new List<string>()
         {
@@ -26,7 +26,7 @@ public class IterableExample
     [Fact]
     public void ArrayExample()
     {
-        StringFormat sf = new ();
+        FormatString sf = new ();
 
         var arr = new string[]
         {

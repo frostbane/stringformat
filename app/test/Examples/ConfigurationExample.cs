@@ -32,7 +32,7 @@ public class ConfigurationExample
     public void
     MapExample()
     {
-        StringFormat sf = new ();
+        FormatString sf = new ();
 
         sf.SetMatchTokens("{", "}");
 
@@ -48,7 +48,7 @@ public class ConfigurationExample
     public void
     ArrayExample()
     {
-        StringFormat sf = new ();
+        FormatString sf = new ();
 
         sf.SetMatchTokens("[", "]");
 
@@ -64,7 +64,7 @@ public class ConfigurationExample
     public void
     EscapeExample()
     {
-        StringFormat sf = new ();
+        FormatString sf = new ();
 
         sf.SetMatchTokens("{", "}")
           .SetEscapeTokens("!", "!");
@@ -82,7 +82,7 @@ public class ConfigurationExample
     public void
     OpenMatcherOnlyExample()
     {
-        StringFormat sf = new ();
+        FormatString sf = new ();
 
         sf.SetMatchTokens("$", string.Empty);
 
@@ -98,7 +98,7 @@ public class ConfigurationExample
     public void
     OpenEscapeOnlyExample()
     {
-        StringFormat sf = new ();
+        FormatString sf = new ();
 
         sf.SetMatchTokens("<", ">")
           .SetEscapeTokens("!", string.Empty);

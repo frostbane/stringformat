@@ -8,7 +8,7 @@ public class SpacesInKeyExample
     [Fact]
     public void Example()
     {
-        StringFormat sf = new ();
+        FormatString sf = new ();
 
         var map = new Hashtable
         {

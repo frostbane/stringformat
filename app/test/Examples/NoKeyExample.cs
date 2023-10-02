@@ -8,7 +8,7 @@ public class NoKeyExample
     [Fact]
     public void MapExample()
     {
-        StringFormat sf = new ();
+        FormatString sf = new ();
 
         var map = new Hashtable
         {
@@ -27,7 +27,7 @@ public class NoKeyExample
     [Fact]
     public void ArrayExample()
     {
-        StringFormat sf = new ();
+        FormatString sf = new ();
 
         var arr = new string[]
         {

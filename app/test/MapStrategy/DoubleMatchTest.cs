@@ -4,8 +4,7 @@ namespace Dev.Frostbane.Test.MapStrategy;
 
 public class DoubleMatchTest : IDisposable
 {
-    private StringFormat
-    sf;
+    private FormatString sf;
 
     /// <summary>
     /// SetUp

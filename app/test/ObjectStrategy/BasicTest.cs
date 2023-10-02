@@ -5,8 +5,7 @@ namespace Dev.Frostbane.Test.ObjectStrategy;
 
 public class BasicTest : IDisposable
 {
-    private StringFormat
-    sf;
+    private FormatString sf;
 
     /// <summary>
     /// SetUp

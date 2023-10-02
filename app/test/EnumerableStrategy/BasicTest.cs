@@ -5,8 +5,7 @@ namespace Dev.Frostbane.Test.EnumerableStrategy;
 
 public class BasicTest : IDisposable
 {
-    private StringFormat
-    sf;
+    private FormatString sf;
 
     /// <summary>
     /// SetUp

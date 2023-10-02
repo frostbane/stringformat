@@ -8,7 +8,7 @@ public class EscapingExample
     [Fact]
     public void EscapeKeyExample()
     {
-        StringFormat sf = new ();
+        FormatString sf = new ();
 
         var map = new Hashtable
         {
@@ -28,7 +28,7 @@ public class EscapingExample
     [Fact]
     public void EscapeEscapeExample()
     {
-        StringFormat sf = new ();
+        FormatString sf = new ();
 
         var map = new Hashtable
         {
