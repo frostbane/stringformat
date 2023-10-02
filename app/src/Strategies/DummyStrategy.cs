@@ -9,7 +9,7 @@ public class DummyStrategy : StrategyInterface
 {
     /// <inheritdoc/>
     public StrategyInterface
-    SetStringFormatter(StringFormatInterface sf)
+    SetStringFormatter(FormatStringInterface sf)
     {
         return this;
     }

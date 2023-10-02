@@ -7,29 +7,26 @@ namespace Dev.Frostbane.Strategies;
 
 public class EnumerableStrategy : StrategyInterface
 {
-    private IEnumerable<object>
-    list;
-
-    private StringFormatInterface
-    sf;
+    private IEnumerable<object> list;
+    private FormatStringInterface sf;
 
     /// <summary>
     /// Create a format strategy for objects implementing
     /// the IEnumerable interface.
     /// </summary>
-#pragma warning disable CS8618
+    #pragma warning disable CS8618
     public EnumerableStrategy()
-#pragma warning restore CS8618
+    #pragma warning restore CS8618
     {
-#pragma warning disable CS8625
+        #pragma warning disable CS8625
         this.sf   = null;
         this.list = null;
-#pragma warning restore CS8625
+        #pragma warning restore CS8625
     }
 
     /// <inheritdoc/>
     public StrategyInterface
-    SetStringFormatter(StringFormatInterface sf)
+    SetStringFormatter(FormatStringInterface sf)
     {
         this.sf   = sf;
 

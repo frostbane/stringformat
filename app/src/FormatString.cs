@@ -3,22 +3,16 @@ using Dev.Frostbane.Strategies;
 
 namespace Dev.Frostbane;
 
-public class StringFormat : StringFormatInterface
+public class FormatString : FormatStringInterface
 {
-    private string
-    matchStart = "{{";
+    private string matchStart = "{{";
+    private string matchEnd = "}}";
 
-    private string
-    matchEnd = "}}";
-
-    private string
-    escapeStart = "//";
-
-    private string
-    escapeEnd = "//";
+    private string escapeStart = "//";
+    private string escapeEnd = "//";
 
     /// <inheritdoc/>
-    public StringFormatInterface
+    public FormatStringInterface
     SetMatchTokens(string open, string close)
     {
         matchStart = open;
@@ -42,7 +36,7 @@ public class StringFormat : StringFormatInterface
     }
 
     /// <inheritdoc/>
-    public StringFormatInterface
+    public FormatStringInterface
     SetEscapeTokens(string open, string close)
     {
         escapeStart = open;
@@ -69,11 +63,11 @@ public class StringFormat : StringFormatInterface
     public string
     GetValue(object obj)
     {
-#pragma warning disable CS8603
+        #pragma warning disable CS8603
         return obj == null ?
                "Null" :
                obj.ToString();
-#pragma warning restore CS8603
+        #pragma warning restore CS8603
     }
 
     private string

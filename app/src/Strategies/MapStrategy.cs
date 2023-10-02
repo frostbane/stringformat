@@ -8,17 +8,14 @@ namespace Dev.Frostbane.Strategies;
 
 public class MapStrategy : StrategyInterface
 {
-#pragma warning disable CS8618
-    private StringFormatInterface
-    sf;
-    private Dictionary<string, object>
-    map;
-
-#pragma warning disable CS8618
+    #pragma warning disable CS8618
+    private FormatStringInterface sf;
+    private Dictionary<string, object> map;
+    #pragma warning disable CS8618
 
     /// <inheritdoc/>
     public StrategyInterface
-    SetStringFormatter(StringFormatInterface sf)
+    SetStringFormatter(FormatStringInterface sf)
     {
         this.sf   = sf;
 
@@ -148,9 +145,9 @@ public class MapStrategy : StrategyInterface
         {
             string exp = CreateMatchExpression(kvp.Key);
 
-#pragma warning disable CS8600
+            #pragma warning disable CS8600
             string val = sf.GetValue(kvp.Value);
-#pragma warning restore CS8600
+            #pragma warning restore CS8600
 
             result = ReplacementIsAToken(val) ?
                 ReplaceAsEscaped(result, exp, val) :

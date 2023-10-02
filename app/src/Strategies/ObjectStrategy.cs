@@ -7,26 +7,23 @@ namespace Dev.Frostbane.Strategies;
 
 public class ObjectStrategy : StrategyInterface
 {
-    private object
-    obj;
+    private object obj;
+    private FormatStringInterface sf;
 
-    private StringFormatInterface
-    sf;
-
-#pragma warning disable CS8618
+    #pragma warning disable CS8618
     public
     ObjectStrategy()
-#pragma warning restore CS8618
+    #pragma warning restore CS8618
     {
-#pragma warning disable CS8625
+        #pragma warning disable CS8625
         this.sf  = null;
         this.obj = null;
-#pragma warning restore CS8625
+        #pragma warning restore CS8625
     }
 
     /// <inheritdoc/>
     public StrategyInterface
-    SetStringFormatter(StringFormatInterface sf)
+    SetStringFormatter(FormatStringInterface sf)
     {
         this.sf   = sf;
 
@@ -52,9 +49,9 @@ public class ObjectStrategy : StrategyInterface
                              prop => prop.GetValue(obj))
                .ToList();
 
-#pragma warning disable CS8619
+        #pragma warning disable CS8619
         return map;
-#pragma warning disable CS8619
+        #pragma warning disable CS8619
     }
 
     /// <summary>
@@ -72,14 +69,14 @@ public class ObjectStrategy : StrategyInterface
                .ToList()
                .DistinctBy(prop => prop.Name)
                .ToDictionary(prop => prop.Name,
-#pragma warning disable CS8602
+                             #pragma warning disable CS8602
                              prop => obj.GetType().GetField(prop.Name).GetValue(obj))
-#pragma warning disable CS8602
+                             #pragma warning disable CS8602
                .ToList();
 
-#pragma warning disable CS8619
+        #pragma warning disable CS8619
         return map;
-#pragma warning disable CS8619
+        #pragma warning disable CS8619
     }
 
     /// <inheritdoc/>

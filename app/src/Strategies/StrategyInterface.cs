@@ -25,5 +25,5 @@ public interface StrategyInterface
     /// </summary>
     /// <param name="sf">StringFormatter instance</param>
     /// <returns>this</returns>
-    StrategyInterface SetStringFormatter(StringFormatInterface sf);
+    StrategyInterface SetStringFormatter(FormatStringInterface sf);
 }

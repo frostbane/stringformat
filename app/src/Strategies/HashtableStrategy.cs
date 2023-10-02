@@ -8,14 +8,13 @@ namespace Dev.Frostbane.Strategies;
 
 public class HashtableStrategy : StrategyInterface
 {
-#pragma warning disable CS8618
-    private StringFormatInterface
-    sf;
-#pragma warning disable CS8618
+    #pragma warning disable CS8618
+    private FormatStringInterface sf;
+    #pragma warning disable CS8618
 
     /// <inheritdoc/>
     public StrategyInterface
-    SetStringFormatter(StringFormatInterface sf)
+    SetStringFormatter(FormatStringInterface sf)
     {
         this.sf   = sf;
 
@@ -31,9 +30,9 @@ public class HashtableStrategy : StrategyInterface
         string result = template;
 
         foreach (DictionaryEntry kvp in (Hashtable)obj) {
-#pragma warning disable CS8604
+            #pragma warning disable CS8604
             map.Add(kvp.Key.ToString(), kvp.Value);
-#pragma warning restore CS8604
+            #pragma warning restore CS8604
         }
 
         return sf.Format(template, map);

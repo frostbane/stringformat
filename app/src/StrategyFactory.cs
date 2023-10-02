@@ -31,10 +31,10 @@ public class StrategyFactory
     public StrategyInterface
     GetStrategy(object obj) => obj switch
     {
-        null                     => new DummyStrategy(),
-        Hashtable map            => new HashtableStrategy(),
+        null                             => new DummyStrategy(),
+        Hashtable map                    => new HashtableStrategy(),
         IDictionary<string, object> dict => new MapStrategy(),
-        IEnumerable<object> list => new EnumerableStrategy(),
-        _                        => new ObjectStrategy(),
+        IEnumerable<object> list         => new EnumerableStrategy(),
+        _                                => new ObjectStrategy(),
     };
 }

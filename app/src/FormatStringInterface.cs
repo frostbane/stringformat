@@ -1,6 +1,6 @@
 namespace Dev.Frostbane;
 
-public interface StringFormatInterface
+public interface FormatStringInterface
 {
     /// <summary>
     /// Set the opening and closing match tokens
@@ -8,7 +8,7 @@ public interface StringFormatInterface
     /// <param name="open">opening match token</param>
     /// <param name="close">closing match token</param>
     /// <returns>this</returns>
-    StringFormatInterface SetMatchTokens(string open, string close);
+    FormatStringInterface SetMatchTokens(string open, string close);
 
     /// <summary>
     /// Get the opening match token
@@ -28,7 +28,7 @@ public interface StringFormatInterface
     /// <param name="open">opening escape token</param>
     /// <param name="close">closing escape token</param>
     /// <returns>this</returns>
-    StringFormatInterface SetEscapeTokens(string open, string close);
+    FormatStringInterface SetEscapeTokens(string open, string close);
 
     /// <summary>
     /// Get the opening escape token
